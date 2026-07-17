@@ -24,5 +24,6 @@
         public DbSet<FantasyFootball.Domain.Entities.NewsArticle> NewsArticles => Set<FantasyFootball.Domain.Entities.NewsArticle>();
         public DbSet<FantasyFootball.Domain.Entities.PlayerNews> PlayerNews => Set<FantasyFootball.Domain.Entities.PlayerNews>();
         public DbSet<FantasyFootball.Domain.Entities.DataSyncHistory> DataSyncHistories => Set<FantasyFootball.Domain.Entities.DataSyncHistory>();
+        public DbSet<FantasyFootball.Domain.Entities.PaymentTransaction> PaymentTransactions => Set<FantasyFootball.Domain.Entities.PaymentTransaction>();
     }
 }

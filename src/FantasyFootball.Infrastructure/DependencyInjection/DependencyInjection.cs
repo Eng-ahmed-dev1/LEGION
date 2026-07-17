@@ -31,6 +31,14 @@ namespace FantasyFootball.Infrastructure.DependencyInjection
             services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
             services.AddScoped<INewsArticleRepository, NewsArticleRepository>();
             services.AddScoped<IPlayerNewsRepository, PlayerNewsRepository>();
+            services.AddScoped<FantasyFootball.Application.Common.Interfaces.Repositories.IPaymentTransactionRepository, FantasyFootball.Infrastructure.Persistence.Repositories.PaymentTransactionRepository>();
+
+            services.Configure<FantasyFootball.Application.Configuration.PaymentSettings>(
+                configuration.GetSection(FantasyFootball.Application.Configuration.PaymentSettings.SectionName));
+            services.Configure<FantasyFootball.Infrastructure.Configuration.StripeSettings>(
+                configuration.GetSection(FantasyFootball.Infrastructure.Configuration.StripeSettings.SectionName));
+
+            services.AddScoped<IPaymentProviderService, FantasyFootball.Infrastructure.Services.StripePaymentProviderService>();
             
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                     .AddEntityFrameworkStores<AppDbContext>()
@@ -236,8 +244,6 @@ namespace FantasyFootball.Infrastructure.DependencyInjection
                 var context = scope.ServiceProvider.GetRequiredService<FantasyFootball.Infrastructure.Persistence.AppDbContext.AppDbContext>();
                 await context.Database.MigrateAsync();
             }
-            
-            await FantasyFootball.Infrastructure.Persistence.DatabaseSeeder.SeedAsync(app.Services);
 
             using (var scope = app.Services.CreateScope())
             {

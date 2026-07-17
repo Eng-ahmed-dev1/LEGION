@@ -1,4 +1,4 @@
-# ⚽ Fantasy Football Backend System
+# ⚽ Legion Backend System
 
 > A production-grade Fantasy Premier League clone built with ASP.NET Core 8, Clean Architecture, DDD, and CQRS.
 
@@ -21,7 +21,7 @@
 
 ## 🎯 Project Overview
 
-**Fantasy Football** is a backend system that replicates the core experience of Fantasy Premier League (FPL). Managers build their squads, make transfers, compete in leagues, and earn points based on real-world player performances.
+**Legion** is a backend system that replicates the core experience of Fantasy Premier League (FPL). Managers build their squads, make transfers, compete in leagues, and earn points based on real-world player performances.
 
 The system is designed to handle **millions of users** with a focus on:
 - **Performance** — Result Pattern instead of exceptions, efficient queries
