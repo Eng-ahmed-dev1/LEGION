@@ -1,0 +1,1 @@
+public record CreateNewsArticleCommand(string Title, string Slug, string Summary, string Content, string Category, string ImageUrl) : IRequest<Result<Guid>>;

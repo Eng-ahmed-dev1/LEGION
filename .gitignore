@@ -1,0 +1,9 @@
+.vs/
+bin/
+obj/
+*.user
+*.suo
+**/node_modules
+**/package-lock.json
+**/package.json
+**/dist

@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="UseCases\Fixture\**" />
+    <EmbeddedResource Remove="UseCases\Fixture\**" />
+    <None Remove="UseCases\Fixture\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageReference Include="Mapster" Version="10.0.7" />
+    <PackageReference Include="MediatR" Version="14.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.3.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FantasyFootball.Domain\FantasyFootball.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCases\FantasyPlayers\Commands\" />
+    <Folder Include="UseCases\FantasyTeams\Commands\" />
+    <Folder Include="UseCases\GameweekScores\Commands\" />
+    <Folder Include="UseCases\Gameweeks\Commands\" />
+    <Folder Include="UseCases\LeagueMembers\Commands\" />
+    <Folder Include="UseCases\Leagues\Commands\" />
+    <Folder Include="UseCases\Leagues\Queries\" />
+    <Folder Include="UseCases\Managers\Commands\" />
+    <Folder Include="UseCases\Managers\Queries\" />
+    <Folder Include="UseCases\PlayerEvents\Commands\" />
+    <Folder Include="UseCases\PlayerEvents\Queries\" />
+    <Folder Include="UseCases\Teams\Commands\" />
+    <Folder Include="UseCases\Teams\Queries\" />
+    <Folder Include="UseCases\Transfers\Commands\" />
+    <Folder Include="UseCases\Transfers\Queries\" />
+  </ItemGroup>
+
+</Project>

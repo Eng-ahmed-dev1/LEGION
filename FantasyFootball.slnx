@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FantasyFootball.API/FantasyFootball.API.csproj" />
+    <Project Path="src/FantasyFootball.Application/FantasyFootball.Application.csproj" />
+    <Project Path="src/FantasyFootball.Domain/FantasyFootball.Domain.csproj" />
+    <Project Path="src/FantasyFootball.Infrastructure/FantasyFootball.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FantasyFootball.Application.Tests/FantasyFootball.Application.Tests.csproj" />
+    <Project Path="tests/FantasyFootball.Domain.Tests/FantasyFootball.Domain.Tests.csproj" />
+    <Project Path="tests/FantasyFootball.IntegrationTests/FantasyFootball.IntegrationTests.csproj" />
+    <Project Path="tests/FantasyFootball.UnitTests/FantasyFootball.UnitTests.csproj" />
+  </Folder>
+</Solution>
