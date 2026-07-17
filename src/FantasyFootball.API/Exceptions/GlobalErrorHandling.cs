@@ -1,31 +1,66 @@
-namespace Fantasy.API.Middlewares;
+using System.Net;
+using System.Text.Json;
 
-public sealed class GlobalExceptionHandler(
-    ILogger<GlobalExceptionHandler> logger)
-    : IExceptionHandler
+namespace FantasyFootball.API.Exceptions;
+
+public class ExceptionMiddleware
 {
-    public async ValueTask<bool> TryHandleAsync(
-        HttpContext httpContext,
-        Exception exception,
-        CancellationToken cancellationToken)
+    private readonly RequestDelegate _next;
+    private readonly ILogger<ExceptionMiddleware> _logger;
+
+    public ExceptionMiddleware(
+        RequestDelegate next,
+        ILogger<ExceptionMiddleware> logger)
     {
-        logger.LogError(
-            exception,
-            "An unhandled exception occurred. TraceId: {TraceId}",
-            httpContext.TraceIdentifier);
+        _next = next;
+        _logger = logger;
+    }
 
-        var response = new ProblemDetails
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
         {
-            Title = "Internal Server Error",
-            Detail = "An unexpected error occurred.",
-            Status = StatusCodes.Status500InternalServerError,
-            Instance = httpContext.Request.Path
-        };
+            await _next(context);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
 
-        httpContext.Response.StatusCode = response.Status!.Value;
+            context.Response.ContentType = "application/json";
 
-        await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
+            var response = new
+            {
+                StatusCode = (int)HttpStatusCode.InternalServerError,
+                Message = ex.Message,
+                Errors = new List<string>()
+            };
 
-        return true;
+            if (ex is FluentValidation.ValidationException validationEx)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                response = new
+                {
+                    StatusCode = context.Response.StatusCode,
+                    Message = "Validation failed",
+                    Errors = validationEx.Errors.Select(e => e.ErrorMessage).ToList()
+                };
+            }
+            else if (ex is FantasyFootball.Domain.Exceptions.DomainException domainEx)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                response = new
+                {
+                    StatusCode = context.Response.StatusCode,
+                    Message = domainEx.Message,
+                    Errors = new List<string>()
+                };
+            }
+            else
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            }
+
+            await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+        }
     }
 }
